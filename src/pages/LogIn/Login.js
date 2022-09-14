@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom'
 // import API from "../../utils/API";
 import Button from '@mui/material/Button';
 
@@ -7,9 +8,11 @@ import Button from '@mui/material/Button';
 const Login = () => {
    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        navigate('/');
         console.log(email, password)
     }
 
