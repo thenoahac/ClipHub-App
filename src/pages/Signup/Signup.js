@@ -11,8 +11,22 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/');
         console.log(email, password)
+        const userData = {
+            email: email,
+            password: password
+        }
+        fetch ('cliphub-back.herokuapp.com/api/customer/login', {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: {'Content-Type': 'application/json'}
+        }).then(placeHolder=>{
+            if(
+                !placeHolder
+            ){console.log('login failed')}
+            console.log('successfully logged in')
+            navigate('/');
+        })
     }
 
     return (
