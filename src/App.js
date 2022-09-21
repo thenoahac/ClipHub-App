@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Login from "./pages/LogIn/Login";
 import Signup from "./pages/Signup/Signup";
 import Scheduler from "./pages/Scheduler/Scheduler"
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   return (
@@ -27,7 +28,11 @@ function App() {
               element={<Signup />}
             />
             <Route
-              path="/scheduler"
+              path="/settings"
+              element={<Settings />}
+            />
+            <Route
+              path="/Scheduler"
               element={<Scheduler />}
             />
           </Routes>

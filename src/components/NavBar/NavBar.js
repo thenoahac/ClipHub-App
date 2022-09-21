@@ -16,6 +16,7 @@ function NavBar(){
                     <div>
                         <Button variant="contained" style={{ display: "inline", margin: "0 auto" }}  onClick={()=>navigate("/Login")}>Login</Button>
                         <Button variant="contained" style={{ display: "inline", margin: "0 auto" }}  onClick={()=>navigate("/Signup")}>Signup</Button>
+                        <Button variant="contained" style={{ display: "inline", margin: "0 auto" }}  onClick={()=>navigate("/Settings")}>Settings</Button>
                     </div>
                 </nav>
             </div>
