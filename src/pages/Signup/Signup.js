@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 // import API from "../../utils/API";
 
@@ -7,6 +7,8 @@ const Signup = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
+    const [token, setToken] = useState(null)
+    const [name, setName] = useState('')
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -16,16 +18,24 @@ const Signup = () => {
             email: email,
             password: password
         }
-        fetch ('cliphub-back.herokuapp.com/api/customer/login', {
+        fetch('http://localhost:3001/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
-            headers: {'Content-Type': 'application/json'}
-        }).then(placeHolder=>{
-            if(
+            headers: { 'Content-Type': 'application/json' }
+        }).then(placeHolder => {
+            if (
                 !placeHolder
-            ){console.log('login failed')}
-            console.log('successfully logged in')
-            navigate('/');
+            ) { console.log('login failed') }
+            else {
+
+                setToken(placeHolder.token)
+                localStorage.setItem('token', placeHolder.token)
+
+
+
+                console.log('successfully logged in')
+            }
+            // navigate('/');
         })
     }
 
@@ -39,17 +49,23 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
-               <label>Password:</label>
+            <label>Password:</label>
             <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-                <label>Phone Number:</label>
+            <label>Phone Number:</label>
             <input
                 type="phonenumber"
                 onChange={(e) => setPhonenumber(e.target.value)}
                 value={phonenumber}
+            />
+            <label>Name:</label>
+            <input
+                type="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
             />
 
             <Button variant="contained" style={{ display: "block", margin: "0 auto" }} type="submit" >Sign Up</Button>{''}

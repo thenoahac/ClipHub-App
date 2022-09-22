@@ -18,7 +18,8 @@ const Settings = () => {
         const userData = {
             email: email,
         }
-        fetch ('cliphub-back.herokuapp.com/api/customer/settings', {
+     const   token = localStorage.getItem('token')
+        fetch (`cliphub-back.herokuapp.com/api/customer/${token.id}`, {
             method: 'PUT',
             body: JSON.stringify(userData),
             headers: {'Content-Type': 'application/json'}
