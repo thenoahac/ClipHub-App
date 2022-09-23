@@ -13,28 +13,34 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password)
+
         const userData = {
             email: email,
-            password: password
+            password: password,
+            name: name,
         }
+        console.log(userData)
         fetch('http://localhost:3001/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
         }).then(placeHolder => {
             if (
-                !placeHolder
+                !placeHolder.ok
             ) { console.log('login failed') }
             else {
-
-                setToken(placeHolder.token)
-                localStorage.setItem('token', placeHolder.token)
-
-
-
-                console.log('successfully logged in')
+                return placeHolder.json()
             }
+        }).then(placeHolder => {
+
+            console.log(placeHolder)
+            setToken(placeHolder.token)
+            localStorage.setItem('token', placeHolder.token)
+
+
+
+            console.log('successfully logged in')
+
             // navigate('/');
         })
     }
@@ -68,7 +74,7 @@ const Signup = () => {
                 value={name}
             />
 
-            <Button variant="contained" style={{ display: "block", margin: "0 auto" }} type="submit" >Sign Up</Button>{''}
+            <Button variant="contained" style={{ display: "block", margin: "0 auto" }} type="submit" value="Submit" >Sign Up</Button>{''}
         </form>
     )
 }
