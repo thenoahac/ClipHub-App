@@ -8,12 +8,31 @@ import Button from '@mui/material/Button';
 const Login = () => {
    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [token, setToken] = useState(null)
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/');
+        // navigate('/');
         console.log(email, password)
+        const userData = {
+            email: email,
+            password: password
+        }
+        fetch('http://localhost:3001/api/customer/login', {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(placeHolder => {
+            if(!placeHolder){
+                console.log('login failed!')
+            }
+            else {
+                setToken(placeHolder.token)
+                localStorage.setItem('token', placeHolder.token)
+                console.log('Login Successful!')
+            }
+        })
     }
 
     return (
