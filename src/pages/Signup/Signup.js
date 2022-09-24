@@ -19,7 +19,7 @@ const Signup = () => {
             name: name,
         }
         console.log(userData)
-        fetch('http://localhost:3001/api/customer/', {
+        fetch('https://cliphub-backendserver.herokuapp.com/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
