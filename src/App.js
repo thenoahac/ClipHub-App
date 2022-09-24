@@ -7,6 +7,28 @@ import Login from "./pages/LogIn/Login";
 import Signup from "./pages/Signup/Signup";
 import Scheduler from "./pages/Scheduler/Scheduler"
 import Settings from "./pages/Settings/Settings";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const themeLight = createTheme({
+  palette: {
+    background: {
+      default: "#e4f0e2"
+    }
+  }
+});
+
+const themeDark = createTheme({
+  palette: {
+    background: {
+      default: "#222222"
+    },
+    text: {
+      primary: "#ffffff"
+    }
+  }
+});
 
 function App() {
   return (
@@ -25,11 +47,11 @@ function App() {
             />
              <Route
               path="/signup"
-              element={<Signup />}
+              element={<Signup/>}
             />
             <Route
               path="/settings"
-              element={<Settings />}
+              element={<Settings/>}
             />
             <Route
               path="/Scheduler"
@@ -40,6 +62,13 @@ function App() {
       </BrowserRouter>
     </div>
   );
+  const [light, setLight] = React.useState(true);
+    return (
+      <MuiThemeProvider theme={light ? themeLight : themeDark}>
+        <CssBaseline />
+        <Button onClick={() => setLight(prev => !prev)}>Toggle Theme</Button>
+      </MuiThemeProvider>
+    );
 }
 
 export default App;

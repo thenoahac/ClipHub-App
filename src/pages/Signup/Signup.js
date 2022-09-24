@@ -7,9 +7,8 @@ const Signup = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
-    const [token, setToken] = useState(null)
     const [name, setName] = useState('')
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +33,6 @@ const Signup = () => {
         }).then(placeHolder => {
 
             console.log(placeHolder)
-            setToken(placeHolder.token)
             localStorage.setItem('token', placeHolder.token)
 
 
@@ -49,29 +47,34 @@ const Signup = () => {
         <form className="signup" onSubmit={handleSubmit}>
             <h3>Sign up</h3>
 
+            <label>Name:</label>
+            <input
+                type="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder='Customer Name'
+            />
+
             <label>Email:</label>
             <input
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                placeholder='Email'
             />
             <label>Password:</label>
             <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                placeholder='Password'
             />
             <label>Phone Number:</label>
             <input
                 type="phonenumber"
                 onChange={(e) => setPhonenumber(e.target.value)}
                 value={phonenumber}
-            />
-            <label>Name:</label>
-            <input
-                type="name"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
+                placeholder='xxx-xxx-xxxx'
             />
 
             <Button variant="contained" style={{ display: "block", margin: "0 auto" }} type="submit" value="Submit" >Sign Up</Button>{''}

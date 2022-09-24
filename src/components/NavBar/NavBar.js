@@ -2,12 +2,13 @@ import React from "react"
 import Button from '@mui/material/Button';
 import {Link} from "react-router-dom"
 import {useNavigate} from "react-router-dom"
+import { AppBar } from '@mui/material'
 
 
 function NavBar(){
     const navigate = useNavigate();
     return(
-        <header>
+        <AppBar position="static">
             <div className="container">
                 <Link to ="/">
                     <h1>ClipHub</h1>
@@ -20,7 +21,7 @@ function NavBar(){
                     </div>
                 </nav>
             </div>
-        </header>
+        </AppBar>
     )
 }
 export default NavBar;
