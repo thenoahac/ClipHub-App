@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 // import { SliderValueLabelUnstyled } from '@mui/base';
 // import { placeHolder } from 'react-bootstrap';
 // import { AirlineSeatIndividualSuiteSharp } from '@mui/icons-material';
 
-
-const Settings = () => {
+const Settings = ({token}) => {
     const [email, setEmail] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
     const [name, setName] = useState();
     const navigate = useNavigate();
-    const [token, setToken] = useState(null);
+    const [tokenchanging, setTokenchanging] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,8 +40,9 @@ const Settings = () => {
                 return placeHolder.json()
                     .then(placeHolder => {
                         console.log(placeHolder)
-                        setToken(placeHolder.token)
-                        localStorage.setItem('token', placeHolder.token)
+                        localStorage.setItem('token', "")
+
+                        setTokenchanging(true)
 
 
 
@@ -53,6 +53,12 @@ const Settings = () => {
 
 
     }
+    useEffect(() => {
+        const currentToken = localStorage.getItem("token")
+        if(!currentToken){
+            navigate("/login")
+        }
+    }, [tokenchanging])
 
 
     return (
@@ -64,7 +70,7 @@ const Settings = () => {
                 type="name"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                placeholder='Gio'
+                placeholder='Customer Name'
             />
             <br></br>
             <label>Email:</label>
@@ -72,7 +78,7 @@ const Settings = () => {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                placeholder='gio2nice@gmail.com'
+                placeholder='Email'
             />
             <br></br>
             <label>Phone Number:</label>

@@ -7,7 +7,7 @@ const Home = () => {
     
   return (
       <>
-        <h1 style={{ display: "block", margin: "0 auto" }}>Schedule Below!</h1>
+        <h1 style={{ display: "block", margin: "10% auto" }}>Schedule Below!</h1>
         <Button variant="contained" style={{ display: "block", margin: "0 auto" }} onClick={()=>navigate("/Scheduler")}>Book An Appointment!</Button>
       </>
   )
