@@ -8,7 +8,7 @@ const Signup = () => {
     const [password, setPassword] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
     const [name, setName] = useState('')
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ const Signup = () => {
             name: name,
         }
         console.log(userData)
-        fetch('https://cliphub-app.herokuapp.com//api/customer/', {
+        fetch('https://localhost:3001/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
@@ -33,13 +33,13 @@ const Signup = () => {
         }).then(placeHolder => {
 
             console.log(placeHolder)
-            localStorage.setItem('token', placeHolder.token)
+            localStorage.setItem('token', '')
 
 
 
             console.log('successfully logged in')
 
-            // navigate('/');
+            navigate('/scheduler');
         })
     }
 

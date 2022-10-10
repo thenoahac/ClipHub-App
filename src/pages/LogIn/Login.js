@@ -20,7 +20,7 @@ const Login = () => {
             email: email,
             password: password
         }
-        fetch('https://cliphub-app.herokuapp.com//api/customer/login', {
+        fetch('https://localhost:3001/api/customer/login', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
