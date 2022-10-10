@@ -57,6 +57,7 @@ const Settings = ({token}) => {
         const currentToken = localStorage.getItem("token")
         if(!currentToken){
             navigate("/login")
+            // console.log('no token here')
         }
     }, [tokenchanging])
 

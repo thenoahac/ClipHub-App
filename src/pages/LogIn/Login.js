@@ -41,6 +41,8 @@ const Login = () => {
             setTokenchanging(true)
 
             console.log('Congrats you are logged in')
+
+            navigate("/")
         })
     }
     useEffect(() => {
