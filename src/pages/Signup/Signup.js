@@ -8,7 +8,7 @@ const Signup = () => {
     const [password, setPassword] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
     const [name, setName] = useState('')
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ const Signup = () => {
             name: name,
         }
         console.log(userData)
-        fetch('https://localhost:3001/api/customer/', {
+        fetch('http://localhost:3001/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
@@ -39,7 +39,7 @@ const Signup = () => {
 
             console.log('successfully logged in')
 
-            navigate('/scheduler');
+            // navigate('/scheduler');
         })
     }
 
