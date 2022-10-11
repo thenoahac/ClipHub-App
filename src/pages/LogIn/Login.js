@@ -20,7 +20,7 @@ const Login = () => {
             email: email,
             password: password
         }
-        fetch('https://localhost:3001/api/customer/login', {
+        fetch('http://localhost:3001/api/customer/login', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
@@ -41,6 +41,8 @@ const Login = () => {
             setTokenchanging(true)
 
             console.log('Congrats you are logged in')
+
+            navigate("/")
         })
     }
     useEffect(() => {

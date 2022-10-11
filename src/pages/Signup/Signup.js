@@ -19,7 +19,7 @@ const Signup = () => {
             name: name,
         }
         console.log(userData)
-        fetch('https://localhost:3001/api/customer/', {
+        fetch('http://localhost:3001/api/customer/', {
             method: 'POST',
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
@@ -33,13 +33,13 @@ const Signup = () => {
         }).then(placeHolder => {
 
             console.log(placeHolder)
-            localStorage.setItem('token', placeHolder.token)
+            localStorage.setItem('token', '')
 
 
 
             console.log('successfully logged in')
 
-            // navigate('/');
+            // navigate('/scheduler');
         })
     }
 

@@ -22,7 +22,7 @@ const Settings = ({token}) => {
         const currentToken = localStorage.getItem("token")
         // const decoded = req.headers?.authorization?.split(" ").pop()
         // if(JSON.parse(localStorage.getItem("type")) === "customers"){
-        fetch('https://cliphub-app.herokuapp.com//api/customer/', {
+        fetch('http://localhost:3001/api/customer/', {
             method: 'PUT',
             // mode: 'cors',
 
@@ -57,6 +57,7 @@ const Settings = ({token}) => {
         const currentToken = localStorage.getItem("token")
         if(!currentToken){
             navigate("/login")
+            // console.log('no token here')
         }
     }, [tokenchanging])
 
