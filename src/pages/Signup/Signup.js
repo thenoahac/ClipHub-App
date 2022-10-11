@@ -24,12 +24,10 @@ const Signup = () => {
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json' }
         }).then(placeHolder => {
-            if (
-                !placeHolder.ok
-            ) { console.log('login failed') }
-            else {
-                return placeHolder.json()
-            }
+
+
+            return placeHolder.json()
+
         }).then(placeHolder => {
 
             console.log(placeHolder)
@@ -40,7 +38,7 @@ const Signup = () => {
             console.log('successfully logged in')
 
             // navigate('/scheduler');
-        })
+        }).catch((err) => { console.log(err) })
     }
 
     return (
