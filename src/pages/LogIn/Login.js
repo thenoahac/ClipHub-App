@@ -1,79 +1,120 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
-// import API from "../../utils/API";
-import Button from '@mui/material/Button';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Constants from "../../utils/constants";
+import {
+	AppBar,
+	Box,
+	Toolbar,
+	Button,
+	IconButton,
+	Typography,
+	TextField,
+	Grid
+} from "@mui/material";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import EmailIcon from "@mui/icons-material/Email";
+import KeyIcon from "@mui/icons-material/Key";
 
+const Login = props => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
+	useEffect(() => {
+		if (!localStorage.getItem(Constants.LOCALSTORAGE_TOKEN_KEY)) {
+			navigate("");
+		} else {
+			navigate("/scheduler");
+		}
+	}, []);
 
-const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    // const [token, setToken] = useState(null)
-    const navigate = useNavigate();
-    const [tokenchanging, setTokenchanging] = useState(false);
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const userData = {
+			email: email,
+			password: password
+		};
+		fetch("http://localhost:3001/api/customer/login", {
+			method: "POST",
+			body: JSON.stringify(userData),
+			headers: { "Content-Type": "application/json" }
+		})
+			.then(placeHolder => placeHolder.json())
+			.then(placeHolder => {
+				if (placeHolder.hasOwnProperty("message")) {
+					alert(placeHolder.message);
+					return;
+				}
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // navigate('/');
-        console.log(email, password)
-        const userData = {
-            email: email,
-            password: password
-        }
-        fetch('http://localhost:3001/api/customer/login', {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            headers: { 'Content-Type': 'application/json' }
-        }).then(placeHolder => {
-            if (
-                !placeHolder.ok
-                ) {console.log('login failed!')}
-            else {
-                // setToken(placeHolder.token)
-                // localStorage.setItem('token', placeHolder.token)
-                // console.log('Login Successful!')
-                return placeHolder.json()
-            }
-        }).then(placeHolder => {
-            console.log(placeHolder)
-            localStorage.setItem('token', "")
+				localStorage.setItem(
+					Constants.LOCALSTORAGE_TOKEN_KEY,
+					placeHolder.token
+				);
+				localStorage.setItem(
+					Constants.LOCALSTORAGE_CUSTOMER_KEY,
+					JSON.stringify(placeHolder.customer)
+				);
 
-            setTokenchanging(true)
+				props.setIsLoggedIn(true);
+				navigate("/scheduler");
+			});
+	};
 
-            console.log('Congrats you are logged in')
-
-            navigate("/")
-        })
-    }
-    useEffect(() => {
-        const currentToken = localStorage.getItem("token")
-        if(!currentToken){
-            navigate("")
-        }
-    }, [tokenchanging])
-
-    return (
-        <form className="login" onSubmit={handleSubmit}>
-            <h3>Log in</h3>
-
-            <label>Email:</label>
-            <input
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                placeholder='Email'
-            />
-            <label>Password:</label>
-            <input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                placeholder='Password'
-            />
-
-            <Button variant="contained" style={{ display: "block", margin: "0 auto" }} type="submit" >Log in</Button>{''}
-        </form>
-    )
-}
+	return (
+		<form className="login" onSubmit={handleSubmit}>
+			<Grid
+				container
+				alignItems="center"
+				justify="center"
+				direction="column"
+			>
+				<Typography
+					variant="h3"
+					style={{ marginBottom: 50, marginTop: 50 }}
+				>
+					Log in
+				</Typography>
+				<TextField
+					label="Email"
+					type="email"
+					variant="standard"
+					value={email}
+					onChange={e => setEmail(e.target.value)}
+					style={{ width: 400, marginBottom: 10 }}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment>
+								<EmailIcon style={{ color: "#aaa" }} />
+							</InputAdornment>
+						)
+					}}
+				/>
+				<TextField
+					label="Password"
+					type="password"
+					variant="standard"
+					value={password}
+					onChange={e => setPassword(e.target.value)}
+					style={{ width: 400, marginBottom: 10 }}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment>
+								<KeyIcon style={{ color: "#aaa" }} />
+							</InputAdornment>
+						)
+					}}
+					helperText="Length should be between 8 to 12 characters."
+				/>
+				<Button
+					variant="contained"
+					style={{ width: 400, marginTop: 30, marginBottom: 50 }}
+					type="submit"
+				>
+					Log in
+				</Button>
+			</Grid>
+		</form>
+	);
+};
 
 export default Login;
